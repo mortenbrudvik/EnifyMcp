@@ -17,7 +17,7 @@ public class WorkspaceTools
     }
 
     [McpServerTool(Name = "list_workspaces")]
-    [Description("List all Enify workspaces. Returns a list of workspaces with their IDs and names.")]
+    [Description("List all Enify workspaces. Returns workspaces with IDs and names. Use workspace IDs to filter boards with list_boards. Example response: [{Id: 'ws-123', Name: 'Development'}, {Id: 'ws-456', Name: 'Production'}]")]
     public async Task<IReadOnlyList<WorkspaceDto>> ListWorkspaces(CancellationToken cancellationToken = default)
     {
         if (!_enifyService.IsEnifyInstalled)

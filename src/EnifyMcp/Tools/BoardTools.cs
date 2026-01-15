@@ -17,11 +17,11 @@ public class BoardTools
     }
 
     [McpServerTool(Name = "list_boards")]
-    [Description("List all Enify boards. Returns boards with their IDs, names, workspace info, and favorite status.")]
+    [Description("List all Enify boards. Returns boards with IDs, names, workspace info, and favorite status. Use board IDs with start_board to launch a board. Example: list_boards(workspaceId: 'ws-123', favoritesOnly: true)")]
     public async Task<IReadOnlyList<BoardDto>> ListBoards(
-        [Description("Filter by workspace ID (optional)")]
+        [Description("Filter by workspace ID from list_workspaces (optional). Example: 'ws-123'")]
         string? workspaceId = null,
-        [Description("Only return favorite boards (default: false)")]
+        [Description("Only return favorite boards marked with a star (default: false)")]
         bool favoritesOnly = false,
         CancellationToken cancellationToken = default)
     {
@@ -52,7 +52,7 @@ public class BoardTools
     }
 
     [McpServerTool(Name = "get_recent_boards")]
-    [Description("Get recently used Enify boards.")]
+    [Description("Get recently used Enify boards, sorted by last use. Useful for quickly accessing frequently used boards.")]
     public async Task<IReadOnlyList<BoardDto>> GetRecentBoards(CancellationToken cancellationToken = default)
     {
         if (!_enifyService.IsEnifyInstalled)
@@ -71,9 +71,9 @@ public class BoardTools
     }
 
     [McpServerTool(Name = "start_board")]
-    [Description("Start a specific Enify board by its ID. The board will launch and arrange windows according to its configuration.")]
+    [Description("Start a specific Enify board by its ID. Launches applications and arranges windows according to the board's saved configuration. Get board IDs from list_boards first. Example: start_board(boardId: 'board-abc123')")]
     public async Task<OperationResult> StartBoard(
-        [Description("The board ID to start (required)")]
+        [Description("The board ID to start (required). Get IDs from list_boards. Example: 'board-abc123'")]
         string boardId,
         CancellationToken cancellationToken = default)
     {
@@ -105,7 +105,7 @@ public class BoardTools
     }
 
     [McpServerTool(Name = "stop_board")]
-    [Description("Stop the currently running Enify board.")]
+    [Description("Stop the currently running Enify board. Closes all windows that were opened by the board and restores the previous window layout.")]
     public async Task<OperationResult> StopBoard(CancellationToken cancellationToken = default)
     {
         if (!_enifyService.IsEnifyInstalled)
@@ -127,7 +127,7 @@ public class BoardTools
     }
 
     [McpServerTool(Name = "refresh_board")]
-    [Description("Refresh the currently running Enify board. This will re-apply the board's window arrangement.")]
+    [Description("Refresh the currently running Enify board. Re-applies the board's window arrangement without restarting applications. Useful when windows have been moved or resized.")]
     public async Task<OperationResult> RefreshBoard(CancellationToken cancellationToken = default)
     {
         if (!_enifyService.IsEnifyInstalled)

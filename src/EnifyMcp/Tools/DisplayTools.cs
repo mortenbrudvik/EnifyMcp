@@ -17,7 +17,7 @@ public class DisplayTools
     }
 
     [McpServerTool(Name = "restore_displays")]
-    [Description("Restore display/monitor configuration to the state saved by Enify.")]
+    [Description("Restore display/monitor configuration to the state saved by Enify. Useful when monitors have been disconnected/reconnected or display settings have changed. Restores resolution, position, and arrangement.")]
     public async Task<OperationResult> RestoreDisplays(CancellationToken cancellationToken = default)
     {
         if (!_enifyService.IsEnifyInstalled)
