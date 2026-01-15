@@ -1,0 +1,16 @@
+{
+  "name": "enify",
+  "version": "1.0.0",
+  "description": "Control Enify workspaces and boards from Claude",
+  "author": {
+    "name": "Morten Brudvik"
+  },
+  "license": "MIT",
+  "keywords": ["enify", "workspaces", "boards", "window-management", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": {
+    "enify": {
+      "command": "${CLAUDE_PLUGIN_ROOT}/bin/EnifyMcp.exe"
+    }
+  }
+}
